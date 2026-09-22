@@ -136,6 +136,7 @@
   a.work:hover .thumb > * { transform: scale(1.03); }
   a.work:hover strong { color: var(--accent); }
   .work img { width: 100%; height: 100%; object-fit: cover; }
+  .work img.fit-contain { object-fit: contain; background: #000; }
   .work.wide { grid-column: span 2; }
   .work .cap { display: block; padding-top: 14px; font-family: var(--ja); }
   .work .cat { display: inline-block; font-size: 11px; letter-spacing: .12em; color: var(--accent); }
@@ -144,10 +145,8 @@
   .work .role { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; }
 
   /* typographic thumbnails */
-  .t-video, .t-wave, .t-food { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
-  .t-video .play { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); position: relative; }
-  .t-video .play::after { content: ""; position: absolute; left: 26px; top: 21px; border-left: 18px solid var(--white); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
-  .t-video p, .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
+  .t-wave, .t-food { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
+  .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
   .t-wave .bars { display: flex; align-items: center; gap: 5px; height: 72px; }
   .t-wave .bars i { width: 5px; border-radius: 3px; background: #cfcdcb; }
   .t-wave .bars i:nth-child(4), .t-wave .bars i:nth-child(8) { background: var(--accent); }
@@ -259,6 +258,7 @@
     .bubble p br { display: none; }
     .services, .works { grid-template-columns: 1fr; }
     .works { --cols: 1; }
+    .work .thumb:has(.fit-contain) { height: auto; aspect-ratio: 1200 / 569; }
     .work.wide { grid-column: auto; }
     .site-foot .wrap { flex-direction: column; }
     .steps { grid-template-columns: 1fr; }
@@ -354,7 +354,7 @@
       <div class="works">
         <a class="work wide" href="https://www.youtube.com/playlist?list=PL3_h-M9ub0oV-Jxeyj8ZgF8uSzeufkP5G" target="_blank" rel="noopener">
           <div class="thumb">
-            <div class="t-video" aria-hidden="true"><span class="play"></span><p>経験者が語る<br>地域みらい留学</p></div>
+            <img class="fit-contain" src="img/keiken-ga-kataru.jpg" alt="『経験者が語る 地域みらい留学』の配信画面。司会のうつみしょうたと卒業生が笑顔で話している" width="1200" height="569" loading="lazy">
           </div>
           <div class="cap"><span class="cat">コンテンツ企画制作</span><strong>『経験者が語る 地域みらい留学』<i>↗</i></strong><span class="role">企画・実行／YouTube</span></div>
         </a>
