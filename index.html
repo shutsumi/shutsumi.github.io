@@ -144,22 +144,16 @@
   .work .role { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; }
 
   /* typographic thumbnails */
-  .t-video, .t-senses, .t-wave, .t-food, .t-mount { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
+  .t-video, .t-wave, .t-food { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
   .t-video .play { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); position: relative; }
   .t-video .play::after { content: ""; position: absolute; left: 26px; top: 21px; border-left: 18px solid var(--white); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
-  .t-video p, .t-senses p, .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
-  .t-senses .dots { display: flex; gap: 8px; }
-  .t-senses .dots span { width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; font-family: var(--ja); font-size: 13px; }
-  .t-senses .dots span:nth-child(3) { background: var(--accent); border-color: var(--accent); color: var(--white); }
+  .t-video p, .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
   .t-wave .bars { display: flex; align-items: center; gap: 5px; height: 72px; }
   .t-wave .bars i { width: 5px; border-radius: 3px; background: #cfcdcb; }
   .t-wave .bars i:nth-child(4), .t-wave .bars i:nth-child(8) { background: var(--accent); }
   .t-food { flex-direction: row; gap: 0; }
   .t-food span { width: 42%; aspect-ratio: 1; border-radius: 50%; border: 1px solid var(--ink); display: grid; place-items: center; font-family: var(--latin); font-weight: 300; font-size: 13px; letter-spacing: .3em; }
   .t-food span + span { margin-left: -8%; border-color: var(--accent); color: var(--accent); }
-  .t-mount svg { height: 62%; max-width: 80%; fill: none; stroke-linecap: round; stroke-linejoin: round; }
-  .t-mount .m { stroke: #bdbbb9; stroke-width: 1.5; }
-  .t-mount .g { stroke: var(--accent); stroke-width: 3; }
 
   .more-works { margin-top: clamp(56px, 7vw, 80px); max-width: 720px; margin-inline: auto; }
   .more-title { margin: 0 0 12px; text-align: center; font-family: var(--ja); font-size: 12px; letter-spacing: .3em; color: var(--ink-soft); }
@@ -372,10 +366,7 @@
         </a>
         <a class="work" href="https://www.instagram.com/p/C8xmFBZSg1l/?img_index=1" target="_blank" rel="noopener">
           <div class="thumb">
-            <div class="t-senses" aria-hidden="true">
-              <div class="dots"><span>見</span><span>聴</span><span>嗅</span><span>触</span><span>味</span></div>
-              <p>五感でたのしむ上映会</p>
-            </div>
+            <img src="img/joeikai.jpg" alt="五感でたのしむ上映会の会場。暗い会場でスクリーンを見つめる参加者たち" width="900" height="900" loading="lazy">
           </div>
           <div class="cap"><span class="cat">イベント</span><strong>『五感でたのしむ上映会』<i>↗</i></strong><span class="role">プロデュース／Instagram</span></div>
         </a>
