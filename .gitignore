@@ -19,3 +19,7 @@ index-v1.html
 
 # 画像生成スクリプト（手元用）
 _tools/
+
+# 素材置き場（原本・スクショ）
+.HYAKKEI*.webp
+うつみしょうたio.png

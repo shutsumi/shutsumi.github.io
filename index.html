@@ -198,6 +198,23 @@
   .career-link:hover, .role-link:hover { opacity: .75; }
   #work-oem, #career-grino { scroll-margin-top: 24px; }
 
+  /* flow */
+  .flow-lead { margin: 0 auto clamp(48px, 6vw, 64px); text-align: center; font-family: var(--ja); font-weight: 400; font-size: clamp(16px, 1.9vw, 19px); line-height: 2.2; letter-spacing: .12em; }
+  .flow-lead em { font-style: normal; color: var(--accent); }
+  .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); margin: 0; padding: 0; list-style: none; counter-reset: s; }
+  .step { position: relative; padding: 26px 22px 28px; background: var(--tile); }
+  .step:not(:last-child)::after { content: ""; position: absolute; top: 50%; right: calc(clamp(16px, 2.4vw, 28px) / -2 - 5px); width: 10px; height: 10px; border-top: 1px solid var(--ink-soft); border-right: 1px solid var(--ink-soft); transform: translateY(-50%) rotate(45deg); }
+  .step .no { font-family: var(--latin); font-weight: 300; font-size: 11px; letter-spacing: .3em; color: var(--accent); }
+  .step h3 { margin: 6px 0 10px; font-family: var(--ja); font-weight: 500; font-size: 19px; letter-spacing: .16em; }
+  .step .tag { display: inline-block; margin: -2px 0 10px; padding: 2px 12px; border-radius: 999px; background: var(--accent); color: var(--white); font-family: var(--ja); font-size: 11px; letter-spacing: .12em; }
+  .step p { margin: 0; font-family: var(--ja); font-size: 13px; line-height: 2; }
+  .step.is-first { background: var(--white); outline: 1px solid var(--accent); outline-offset: -1px; }
+  .terms { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 48px; margin: 40px 0 0; font-family: var(--ja); font-size: 13px; }
+  .terms div { display: flex; gap: 16px; }
+  .terms dt { color: var(--ink-soft); }
+  .terms dd { margin: 0; }
+  .flow-cta { margin-top: 40px; text-align: center; }
+
   /* contact */
   .contact-sec { text-align: center; border-top: 1px solid var(--rule); }
   .contact-sec .big { margin: 0 0 20px; font-family: var(--ja); font-weight: 400; font-size: clamp(20px, 2.6vw, 26px); letter-spacing: .16em; line-height: 1.9; }
@@ -212,6 +229,9 @@
   }
   .btn:hover { background: var(--ink); color: var(--white); }
   .btn svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.6; }
+  .btn { font-family: var(--ja); }
+  .mail-alt { margin: 22px 0 0; font-family: var(--ja); font-size: 12px; color: var(--ink-soft); }
+  .mail-alt a { font-family: var(--latin); border-bottom: 1px solid currentColor; }
 
   /* footer */
   .to-top { display: block; width: 24px; margin: 0 auto 40px; color: #c9c9c9; }
@@ -231,6 +251,8 @@
     .works { --cols: 2; }
     .work.wide:last-child { grid-column: auto; }
     .chores { grid-template-columns: 1fr; }
+    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .step::after { display: none; }
     .profile { grid-template-columns: 1fr; justify-items: center; }
     .avatar { width: 200px; }
     .profile > div:last-child { width: 100%; }
@@ -245,6 +267,9 @@
     .works { --cols: 1; }
     .work.wide { grid-column: auto; }
     .site-foot .wrap { flex-direction: column; }
+    .steps { grid-template-columns: 1fr; }
+    .flow-lead br { display: none; }
+    .terms { flex-direction: column; align-items: center; }
     .career li { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -270,6 +295,7 @@
       <a href="#about">About</a>
       <a href="#service">Service</a>
       <a href="#works">Works</a>
+      <a href="#flow">Flow</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -370,9 +396,7 @@
         </div>
         <a class="work wide" href="https://hyakkei.me/articles-995/" target="_blank" rel="noopener">
           <div class="thumb">
-            <div class="t-mount" aria-hidden="true">
-              <svg viewBox="0 0 200 120"><path class="m" d="M0 110 55 40l25 28 38-52 82 94"/><g class="g"><circle cx="78" cy="96" r="14"/><circle cx="122" cy="96" r="14"/><path d="M92 94q8-6 16 0"/></g></svg>
-            </div>
+            <img src="img/hyakkei-zoff.webp" alt="メガネハイカー meets Zoff。メガネをかけた登山姿の3人" width="1200" height="665" loading="lazy">
           </div>
           <div class="cap"><span class="cat">コンテンツ企画・ディレクション</span><strong>登山用サングラス（メガネ）に悩む人は、Zoffの調光レンズが最適解かもしれない<i>↗</i></strong><span class="role">記事企画・ディレクション／.HYAKKEI</span></div>
         </a>
@@ -405,6 +429,44 @@
         <li class="chore"><span class="no">07</span><strong>週2回の更新を、止めずにまわし続ける</strong><p>つくったサイトを、自動で最新に保つ仕組みまで。</p><span class="level">面倒度 <span>●●●○○</span></span></li>
         <li class="chore"><span class="no">08</span><strong>決まっていないことを、決まるまで聞く</strong><p>「何から手をつければいいか」の段階から、現場に話を聞いて整理します。</p><span class="level">面倒度 <span>●●●●●</span></span></li>
       </ol>
+    </div>
+  </section>
+
+  <!-- Flow -->
+  <section id="flow" class="flow-sec">
+    <div class="wrap">
+      <div class="sec-title"><h2>Flow</h2><p>進め方</p></div>
+      <p class="flow-lead">料金表は、つくっていません。<br>面倒くさいことは、会社ごとに<em>かたちがちがう</em>からです。<br>まずは1時間、お話しさせてください。</p>
+      <ol class="steps">
+        <li class="step is-first">
+          <span class="no">STEP 01</span>
+          <h3>ヒアリング</h3>
+          <span class="tag">まずは1時間</span>
+          <p>いま困っていること、後回しになっていることを聞かせてください。まだ言葉になっていなくても大丈夫です。</p>
+        </li>
+        <li class="step">
+          <span class="no">STEP 02</span>
+          <h3>調査</h3>
+          <p>実際に使う、現地に行く、ターゲットに直接聞く。判断の材料になる一次情報を集めます。</p>
+        </li>
+        <li class="step">
+          <span class="no">STEP 03</span>
+          <h3>提案</h3>
+          <p>集めた事実と声から、何を・どの順番でやるかを組み立てます。範囲と期間に合わせて、お見積もりもここで。</p>
+        </li>
+        <li class="step">
+          <span class="no">STEP 04</span>
+          <h3>実行</h3>
+          <p>決めたことを、手を動かして進めます。続けられる仕組みにして、手渡すところまで。</p>
+        </li>
+      </ol>
+      <dl class="terms">
+        <div><dt>費用</dt><dd>ご相談内容をうかがってから、お見積もりします</dd></div>
+        <div><dt>契約</dt><dd>業務委託（インボイス登録済み）</dd></div>
+      </dl>
+      <div class="flow-cta">
+        <a class="btn" href="mailto:sh.utsumi@gmail.com?subject=1%E6%99%82%E9%96%93%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87&amp;body=%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%9A%0A%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E3%81%94%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%88%E3%81%96%E3%81%A3%E3%81%8F%E3%82%8A%E3%81%A7%E5%A4%A7%E4%B8%88%E5%A4%AB%E3%81%A7%E3%81%99%EF%BC%89%EF%BC%9A%0A%0A%E3%81%94%E9%83%BD%E5%90%88%E3%81%AE%E3%82%88%E3%81%84%E6%97%A5%E6%99%82%E3%81%AE%E5%80%99%E8%A3%9C%EF%BC%9A%0A">まずは1時間、話してみる <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </section>
 
@@ -449,10 +511,11 @@
       <div class="sec-title"><h2>Contact</h2><p>ご相談</p></div>
       <p class="big">その面倒、引き受けます。</p>
       <p class="note">「やったほうがいいのはわかっているけど、誰も手をつけていない」。そんな仕事ほど歓迎です。何から調べればいいかわからない段階から、ご一緒できます。</p>
-      <a class="btn" href="mailto:sh.utsumi@gmail.com">
+      <a class="btn" href="mailto:sh.utsumi@gmail.com?subject=1%E6%99%82%E9%96%93%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87&amp;body=%E4%BC%9A%E7%A4%BE%E5%90%8D%EF%BC%9A%0A%E3%81%8A%E5%90%8D%E5%89%8D%EF%BC%9A%0A%E3%81%94%E7%9B%B8%E8%AB%87%E5%86%85%E5%AE%B9%EF%BC%88%E3%81%96%E3%81%A3%E3%81%8F%E3%82%8A%E3%81%A7%E5%A4%A7%E4%B8%88%E5%A4%AB%E3%81%A7%E3%81%99%EF%BC%89%EF%BC%9A%0A%0A%E3%81%94%E9%83%BD%E5%90%88%E3%81%AE%E3%82%88%E3%81%84%E6%97%A5%E6%99%82%E3%81%AE%E5%80%99%E8%A3%9C%EF%BC%9A%0A">
         <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m4 6.5 8 6.5 8-6.5"/></svg>
-        sh.utsumi@gmail.com
+        まずは1時間、お話ししましょう
       </a>
+      <p class="mail-alt">メールで直接：<a href="mailto:sh.utsumi@gmail.com">sh.utsumi@gmail.com</a></p>
     </div>
   </section>
 </main>
@@ -466,6 +529,7 @@
       <a href="#about">About</a>
       <a href="#works">Works</a>
       <a href="#list">List</a>
+      <a href="#flow">Flow</a>
       <a href="#contact">Contact</a>
     </nav>
     <small>© 2026 UTSUMI SHOTA All rights reserved.</small>
