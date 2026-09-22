@@ -16,3 +16,6 @@ index-v1.html
 *.aup3
 *.mp4
 *.mov
+
+# 画像生成スクリプト（手元用）
+_tools/
