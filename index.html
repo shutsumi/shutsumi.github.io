@@ -171,6 +171,13 @@
   .facts dt, .facts dd { margin: 0; padding: 10px 0; border-bottom: 1px solid var(--rule); }
   .facts dt { color: var(--ink-soft); }
   .todo { outline: 1px dashed var(--accent); outline-offset: 2px; color: var(--accent); }
+  .career-title { margin: 36px 0 4px; font-family: var(--latin); font-weight: 400; font-size: 11px; letter-spacing: .3em; color: var(--accent); }
+  .career { margin: 0 0 32px; padding: 0; list-style: none; border-top: 1px solid var(--ink); }
+  .career li { display: grid; grid-template-columns: 120px 1fr; gap: 4px 20px; padding: 18px 0; border-bottom: 1px solid var(--rule); }
+  .career .when { font-family: var(--latin); font-size: 13px; letter-spacing: .06em; color: var(--ink-soft); line-height: 1.9; }
+  .career strong { display: block; font-family: var(--ja); font-weight: 500; font-size: 15px; letter-spacing: .06em; line-height: 1.8; }
+  .career strong small { margin-left: 8px; font-weight: 400; font-size: 11px; letter-spacing: .1em; color: var(--accent); }
+  .career p { margin: 4px 0 0; font-size: 13px; line-height: 2; }
 
   /* contact */
   .contact-sec { text-align: center; border-top: 1px solid var(--rule); }
@@ -219,6 +226,7 @@
     .works { --cols: 1; }
     .work.wide { grid-column: auto; }
     .site-foot .wrap { flex-direction: column; }
+    .career li { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -390,11 +398,30 @@
         <div>
           <h3>うつみしょうた</h3>
           <span class="en">SHOTA UTSUMI</span>
-          <p>マーケティングを軸に、調査・資料・ウェブ・音声まで、必要なものは自分でつくる個人事業主です。得意なのは、ユーザーに直接話を聞くことと、現場の情報を足で集めること。数字だけでも感覚だけでもなく、両方から「次に何をするか」を決めます。</p>
+          <p>実際に使う、現地に行く、ターゲットに直接聞く。一次情報を自らの足で取りに行くことを重視し、そこからマーケティング戦略を設計・実行してきました。</p>
+
+          <p class="career-title">CAREER</p>
+          <ol class="career">
+            <li>
+              <span class="when">新卒〜2021</span>
+              <div><strong>株式会社オプト</strong><p>Web広告を中心としたプロモーションおよび広告運用コンサル・アカウントプランナーとして、数十社を担当。</p></div>
+            </li>
+            <li>
+              <span class="when">2018〜</span>
+              <div><strong>地域みらい留学<small>副業</small></strong><p>高校生の国内留学事業のマーケティングに携わる。これまで100名近くの留学生・保護者の方々の生の声を聴く対談コンテンツ・ユーザーインタビューを積み上げています。</p></div>
+            </li>
+            <li>
+              <span class="when">2021〜</span>
+              <div><strong>プラントベース食品ブランド「Grino」</strong><p>自身がベジタリアンになったことを契機に転職し、ブランドを立ち上げ。営業・商品開発・EC運営・工場開拓・SNS＆Podcastの企画運営等を担当。</p></div>
+            </li>
+            <li>
+              <span class="when">2026.10〜</span>
+              <div><strong>独立<small>うつみしょうた</small></strong><p>面倒くさいこと専門マーケターとして活動。</p></div>
+            </li>
+          </ol>
+
           <dl class="facts">
             <dt>屋号</dt><dd>うつみしょうた</dd>
-            <dt>活動</dt><dd>2026年10月より独立・専業</dd>
-            <!-- 経歴（未記入のため非表示）: <dt>経歴</dt><dd>前職・これまでの仕事を2〜3行で</dd> -->
             <dt>好きな面倒</dt><dd>全部見る、全部読む、全部聞く</dd>
           </dl>
         </div>
