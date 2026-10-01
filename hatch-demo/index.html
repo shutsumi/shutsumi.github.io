@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>HATCH 総合窓口（デモ）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#221817;          /* hatch-888.jp の本文・線 */
+  --text:#2f2f2f;
+  --sub:#6d5f5d;
+  --mute:#8f8d8e;
+  --line:#e8e7e7;
+  --gray:#f2f2f2;
+  --bg:#fff;
+  --accent:#bf2445;       /* hatch-888.jp の差し色 */
+  --accent-soft:rgba(191,36,69,.08);
+  --jp:"游ゴシック体",YuGothic,"游ゴシック","Yu Gothic","Noto Sans JP","Hiragino Kaku Gothic ProN","Hiragino Sans",Meiryo,sans-serif;
+  --en:"Open Sans","Noto Sans JP",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--jp);color:var(--text);background:var(--bg);letter-spacing:.1em;font-size:14px;line-height:1.8;-webkit-font-smoothing:antialiased;font-weight:500}
+button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+button{cursor:pointer;background:none;border:0}
+
+/* デモ表示 */
+.demo-bar{background:var(--ink);color:#fff;font-size:11px;text-align:center;padding:6px 16px;letter-spacing:.08em}
+
+/* ヘッダー */
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 32px;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.96);backdrop-filter:blur(6px);z-index:10}
+.logo{font-family:var(--en);font-weight:800;font-size:22px;letter-spacing:.02em;color:var(--ink)}
+.logo small{display:block;font-family:var(--jp);font-weight:500;font-size:10px;letter-spacing:.1em;color:var(--sub);margin-top:-2px}
+.tabs{display:flex;gap:6px;background:var(--gray);border-radius:30px;padding:4px}
+.tab{padding:8px 18px;border-radius:30px;font-size:12px;font-weight:700;color:var(--sub);transition:.2s}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff}
+
+main{max-width:1080px;margin:0 auto;padding:56px 32px 96px}
+.view{display:none}.view.on{display:block}
+
+/* 見出し */
+.en-head{font-family:var(--en);font-weight:800;font-size:44px;letter-spacing:-.01em;line-height:1.1;color:var(--ink)}
+.en-head .dot{color:var(--accent)}
+.lead{margin-top:14px;color:var(--sub);font-size:13px}
+.step-label{font-family:var(--en);font-weight:700;font-size:11px;letter-spacing:.2em;color:var(--accent);margin-bottom:10px}
+h3{font-size:18px;font-weight:700;color:var(--ink);letter-spacing:.06em}
+
+/* ステップ */
+.steps{display:flex;gap:8px;margin:36px 0 28px}
+.steps span{flex:1;height:3px;border-radius:3px;background:var(--line);transition:.3s}
+.steps span.on{background:var(--ink)}
+.panel{display:none}.panel.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* 目的カード */
+.purposes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:22px}
+.purpose{text-align:left;border:1px solid var(--line);border-radius:20px;padding:20px 20px 18px;background:#fff;transition:.2s;position:relative}
+.purpose:hover{border-color:var(--ink);transform:translateY(-2px)}
+.purpose[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
+.purpose[aria-pressed="true"] .p-desc{color:rgba(255,255,255,.75)}
+.p-ttl{font-weight:700;font-size:15px;letter-spacing:.05em;display:block}
+.p-desc{font-size:11px;color:var(--mute);display:block;margin-top:6px;line-height:1.7}
+.purpose .check{position:absolute;top:16px;right:16px;width:20px;height:20px;border-radius:100%;border:1px solid var(--line)}
+.purpose[aria-pressed="true"] .check{background:var(--accent);border-color:var(--accent)}
+.purpose[aria-pressed="true"] .check::after{content:"";position:absolute;left:6px;top:3px;width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+
+/* 自由記述 */
+.free{margin-top:28px;background:var(--gray);border-radius:20px;padding:22px}
+.free label{font-size:12px;font-weight:700;color:var(--ink)}
+.free textarea{width:100%;margin-top:10px;border:1px solid transparent;border-radius:10px;padding:14px;min-height:88px;background:#fff;resize:vertical;font-size:13px;line-height:1.8}
+.free textarea:focus{outline:none;border-color:var(--ink)}
+.hint{font-size:11px;color:var(--mute);margin-top:8px}
+
+/* 振り分け結果 */
+.route{margin-top:22px;border-radius:20px;border:1px dashed var(--line);padding:18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;min-height:66px}
+.route-label{font-size:11px;color:var(--mute);margin-right:6px}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:30px;padding:6px 14px;font-size:12px;font-weight:700;background:var(--accent-soft);color:var(--accent)}
+.chip.main{background:var(--accent);color:#fff}
+.chip.sub{background:var(--gray);color:var(--sub)}
+
+/* フォーム */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px 22px;margin-top:22px}
+.field{display:flex;flex-direction:column;gap:8px}
+.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:700;color:var(--ink)}
+.req{color:var(--accent);font-size:10px;margin-left:6px}
+.field input,.field select,.field textarea{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff;font-size:13px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--ink)}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:12px;background:#fff}
+.seg button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+
+/* 確認 */
+.confirm{margin-top:24px;border-radius:20px;background:var(--gray);padding:26px}
+.confirm dl{display:grid;grid-template-columns:140px 1fr;gap:10px 18px;font-size:13px}
+.confirm dt{color:var(--mute);font-size:12px}
+.confirm dd{color:var(--ink);word-break:break-all}
+.notice{margin-top:16px;font-size:12px;color:var(--sub);background:#fff;border-radius:10px;padding:14px 16px;border-left:3px solid var(--accent)}
+
+/* ボタン */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:34px;gap:12px}
+.btn{display:inline-flex;align-items:center;gap:10px;border-radius:30px;padding:14px 28px;font-weight:700;font-size:13px;transition:.2s}
+.btn-main{background:var(--ink);color:#fff}
+.btn-main:hover{background:var(--accent)}
+.btn-main:disabled{background:var(--line);color:var(--mute);cursor:not-allowed}
+.btn-ghost{color:var(--sub)}
+.btn-ghost:hover{color:var(--ink)}
+.arrow{font-family:var(--en)}
+
+/* 完了 */
+.done{text-align:center;padding:40px 0 10px}
+.done .big{font-family:var(--en);font-weight:800;font-size:56px;color:var(--ink);line-height:1}
+.done p{margin-top:16px;color:var(--sub);font-size:13px}
+.ticket{display:inline-block;margin-top:22px;font-family:var(--en);font-weight:700;font-size:13px;background:var(--gray);border-radius:30px;padding:8px 20px;color:var(--ink)}
+.notify{max-width:520px;margin:34px auto 0;text-align:left;border:1px solid var(--line);border-radius:20px;padding:18px 20px;font-size:12px}
+.notify-head{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.notify-head .ch{font-family:var(--en);background:var(--gray);border-radius:5px;padding:1px 8px;font-size:11px}
+.notify pre{white-space:pre-wrap;font-family:var(--jp);color:var(--sub);font-size:12px;line-height:1.8}
+
+/* ===== 受付ボード ===== */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.kpi{background:var(--gray);border-radius:20px;padding:18px 20px}
+.kpi b{display:block;font-family:var(--en);font-weight:800;font-size:32px;color:var(--ink);line-height:1.2;letter-spacing:0}
+.kpi span{font-size:11px;color:var(--sub)}
+.kpi.alert b{color:var(--accent)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.box{border:1px solid var(--line);border-radius:20px;padding:20px 22px}
+.box h4{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.bar-row{display:grid;grid-template-columns:120px 1fr 28px;align-items:center;gap:10px;font-size:11px;margin:7px 0}
+.bar-track{height:8px;border-radius:8px;background:var(--gray);overflow:hidden}
+.bar-fill{height:100%;border-radius:8px;background:var(--ink)}
+.bar-row.top .bar-fill{background:var(--accent)}
+.bar-row em{font-style:normal;font-family:var(--en);font-weight:700;text-align:right;color:var(--ink)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:36px 0 12px}
+.toolbar select{border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:12px;background:#fff}
+.toolbar .sp{flex:1}
+.small-btn{font-size:11px;color:var(--sub);border:1px solid var(--line);border-radius:30px;padding:6px 14px}
+.small-btn:hover{border-color:var(--ink);color:var(--ink)}
+
+.table-wrap{border:1px solid var(--line);border-radius:20px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:820px}
+th{font-size:11px;color:var(--mute);font-weight:500;text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);background:#fff;white-space:nowrap}
+td{padding:13px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+tr.new td{background:var(--accent-soft)}
+.t-id{font-family:var(--en);font-weight:700;color:var(--ink);font-size:11px;white-space:nowrap}
+.t-co{font-weight:700;color:var(--ink)}
+.t-sum{color:var(--sub);font-size:11px;margin-top:2px;max-width:280px}
+.b-tag{display:inline-block;border-radius:30px;padding:2px 10px;font-size:11px;font-weight:700;background:var(--gray);color:var(--ink);margin:0 4px 4px 0;white-space:nowrap}
+.b-tag.main{background:var(--ink);color:#fff}
+td select{border:1px solid var(--line);border-radius:30px;padding:4px 10px;font-size:11px;background:#fff}
+.age{font-family:var(--en);font-size:11px;white-space:nowrap}
+.age.late{color:var(--accent);font-weight:700}
+
+/* ===== このデモについて ===== */
+.compare{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch;margin-top:34px}
+.cmp{border-radius:20px;padding:24px}
+.cmp.before{background:var(--gray)}
+.cmp.after{border:1px solid var(--ink)}
+.cmp h4{font-family:var(--en);font-weight:800;font-size:13px;letter-spacing:.15em;margin-bottom:14px}
+.cmp.after h4{color:var(--accent)}
+.cmp ul{list-style:none;font-size:12px}
+.cmp li{padding:7px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.cmp li:last-child{border-bottom:0}
+.cmp li span:last-child{color:var(--mute);text-align:right}
+.cmp-arrow{align-self:center;font-family:var(--en);font-weight:800;font-size:28px;color:var(--accent)}
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.point{border:1px solid var(--line);border-radius:20px;padding:22px}
+.point .num{font-family:var(--en);font-weight:800;font-size:12px;color:var(--accent);letter-spacing:.15em}
+.point h5{font-size:14px;font-weight:700;color:var(--ink);margin:6px 0 8px;letter-spacing:.05em}
+.point p{font-size:12px;color:var(--sub)}
+.next{margin-top:14px;background:var(--gray);border-radius:20px;padding:22px 24px;font-size:12px;color:var(--sub)}
+.next b{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);padding:24px 32px;font-size:10px;color:var(--mute);text-align:center}
+
+@media (max-width:760px){
+  header{padding:14px 16px;flex-wrap:wrap}
+  .tabs{width:100%;justify-content:space-between}
+  .tab{padding:8px 6px;flex:1;font-size:11px;letter-spacing:.02em;white-space:nowrap}
+  main{padding:36px 16px 72px}
+  .en-head{font-size:32px}
+  .grid2,.two,.points{grid-template-columns:1fr}
+  .kpis{grid-template-columns:1fr 1fr}
+  .compare{grid-template-columns:1fr}
+  .cmp-arrow{transform:rotate(90deg);justify-self:center}
+  .confirm dl{grid-template-columns:1fr;gap:2px}
+  .confirm dd{margin-bottom:10px}
+  .bar-row{grid-template-columns:96px 1fr 24px}
+}
+</style>
+</head>
+<body>
+
+<div class="demo-bar">提案用のデモです（非公式）。株式会社ハッチの公式サイトではありません。入力した内容はこのブラウザ内にだけ保存され、どこにも送信されません。</div>
+
+<header>
+  <div class="logo">HATCH<small>総合窓口</small></div>
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" data-view="client" aria-selected="true">お客さま画面</button>
+    <button class="tab" role="tab" data-view="board" aria-selected="false">受付ボード</button>
+    <button class="tab" role="tab" data-view="about" aria-selected="false">このデモとは</button>
+  </nav>
+</header>
+
+<main>
+
+<!-- ============ お客さま画面 ============ -->
+<section class="view on" id="view-client">
+  <h1 class="en-head">Contact<span class="dot">.</span></h1>
+  <p class="lead">ご相談の窓口はひとつです。内容に合わせて、HATCHの中から最適なチームがご連絡します。</p>
+
+  <div class="steps" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
+
+  <!-- STEP 1 -->
+  <div class="panel on" data-step="1">
+    <p class="step-label">STEP 01</p>
+    <h3>どんなことをお願いしたいですか？（いくつでも）</h3>
+    <div class="purposes" id="purposes"></div>
+
+    <div class="free">
+      <label for="freeText">言葉で書いてもらってもかまいません</label>
+      <textarea id="freeText" placeholder="例）新商品のブランドムービーとSNS用の縦動画をつくりたい。ヘアメイクさんも探しています"></textarea>
+      <p class="hint">書いた内容からも、担当するチームを自動で選びます。</p>
+    </div>
+
+    <div class="route" id="route1"><span class="route-label">担当するチーム</span><span class="hint" style="margin:0">上から選ぶか、内容を書くと表示されます</span></div>
+
+    <div class="nav">
+      <span></span>
+      <button class="btn btn-main" id="toStep2" disabled>次へ <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="panel" data-step="2">
+    <p class="step-label">STEP 02</p>
+    <h3>ご相談の内容を教えてください</h3>
+    <div class="grid2">
+      <div class="field"><label for="f-company">会社名・団体名<span class="req">必須</span></label><input id="f-company" autocomplete="organization" placeholder="例）株式会社サンプル"></div>
+      <div class="field"><label for="f-name">お名前<span class="req">必須</span></label><input id="f-name" autocomplete="name" placeholder="例）山田 花子"></div>
+      <div class="field"><label for="f-mail">メールアドレス<span class="req">必須</span></label><input id="f-mail" type="email" autocomplete="email" placeholder="例）hanako@example.com"></div>
+      <div class="field"><label for="f-tel">電話番号</label><input id="f-tel" type="tel" autocomplete="tel" placeholder="例）03-0000-0000"></div>
+      <div class="field full"><label>ご予算の目安</label><div class="seg" data-key="budget"></div></div>
+      <div class="field full"><label>いつ頃までに</label><div class="seg" data-key="timing"></div></div>
+      <div class="field full"><label>HATCHを知ったきっかけ</label><div class="seg" data-key="source"></div></div>
+      <div class="field full"><label for="f-detail">詳しい内容</label><textarea id="f-detail" rows="4" placeholder="決まっていないことが多くても大丈夫です"></textarea></div>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" data-back="1"><span class="arrow">←</span> 戻る</button>
+      <button class="btn btn-main" id="toStep3" disabled>確認へ <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="panel" data-step="3">
+    <p class="step-label">STEP 03</p>
+    <h3>この内容で送ります</h3>
+    <div class="confirm"><dl id="confirmList"></dl>
+      <p class="notice" id="confirmNotice"></p>
+    </div>
+    <div class="nav">
+      <button class="btn btn-ghost" data-back="2"><span class="arrow">←</span> 戻る</button>
+      <button class="btn btn-main" id="submit">送信する <span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- 完了 -->
+  <div class="panel" data-step="4">
+    <div class="done">
+      <div class="big">Thank you<span style="color:var(--accent)">.</span></div>
+      <p>ご相談を受け付けました。<br><span id="doneTeam"></span>から、1営業日以内にご連絡します。</p>
+      <span class="ticket" id="doneId"></span>
+      <div class="notify">
+        <div class="notify-head">社内への通知イメージ <span class="ch" id="doneCh"></span></div>
+        <pre id="doneMsg"></pre>
+      </div>
+      <div class="nav" style="justify-content:center;gap:14px">
+        <button class="btn btn-ghost" id="again">もう1件試す</button>
+        <button class="btn btn-main" id="goBoard">受付ボードで見る <span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 受付ボード ============ -->
+<section class="view" id="view-board">
+  <h1 class="en-head">Inbox<span class="dot">.</span></h1>
+  <p class="lead">8ブランドへの問い合わせを1か所で見る、社内向けの画面です。担当・対応状況・きっかけを記録します。</p>
+
+  <div class="kpis">
+    <div class="kpi"><b id="k-total">0</b><span>今月の問い合わせ</span></div>
+    <div class="kpi alert"><b id="k-open">0</b><span>まだ連絡していない</span></div>
+    <div class="kpi"><b id="k-cross">0</b><span>複数チームにまたがる相談</span></div>
+    <div class="kpi"><b id="k-won">0</b><span>受注</span></div>
+  </div>
+
+  <div class="two">
+    <div class="box"><h4>担当チーム別の件数</h4><div id="chart-brand"></div></div>
+    <div class="box"><h4>知ったきっかけ別の件数</h4><div id="chart-source"></div></div>
+  </div>
+
+  <div class="toolbar">
+    <select id="filterBrand" aria-label="担当で絞り込む"><option value="">すべてのチーム</option></select>
+    <select id="filterStatus" aria-label="状況で絞り込む"><option value="">すべての状況</option></select>
+    <span class="sp"></span>
+    <button class="small-btn" id="exportCsv">CSVで書き出す</button>
+    <button class="small-btn" id="resetData">サンプルに戻す</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>受付番号</th><th>受付日</th><th>会社・内容</th><th>担当チーム</th><th>きっかけ</th><th>予算</th><th>状況</th><th>経過</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="hint" style="margin-top:10px">※ 表示している会社名・内容はすべて架空のサンプルです。</p>
+</section>
+
+<!-- ============ このデモについて ============ -->
+<section class="view" id="view-about">
+  <h1 class="en-head">One door<span class="dot">.</span></h1>
+  <p class="lead">入口をひとつにして、中で振り分ける。お客さまは迷わず、社内は取りこぼさない仕組みです。</p>
+
+  <div class="compare">
+    <div class="cmp before">
+      <h4>NOW</h4>
+      <ul>
+        <li><span>Creative Hub Swimmy</span><span>電話</span></li>
+        <li><span>SPEC</span><span>メール</span></li>
+        <li><span>fill</span><span>メール</span></li>
+        <li><span>Curator</span><span>フォーム</span></li>
+        <li><span>We / MIKOSHI / KiKKA</span><span>各サイト</span></li>
+        <li><span>HATCH</span><span>フォーム</span></li>
+      </ul>
+    </div>
+    <div class="cmp-arrow">→</div>
+    <div class="cmp after">
+      <h4>ONE DOOR</h4>
+      <ul>
+        <li><span>入口</span><span>総合窓口ひとつ</span></li>
+        <li><span>振り分け</span><span>内容から自動で</span></li>
+        <li><span>通知</span><span>担当チームのチャンネルへ</span></li>
+        <li><span>記録</span><span>受付ボードに全件</span></li>
+        <li><span>またがる相談</span><span>複数チームに同時に届く</span></li>
+        <li><span>振り返り</span><span>きっかけ・受注率を毎月</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="points">
+    <div class="point"><p class="num">01</p><h5>お客さまが迷わない</h5><p>「どのブランドに頼めばいいか」をお客さまに考えさせない。やりたいことを選ぶか、言葉で書くだけです。</p></div>
+    <div class="point"><p class="num">02</p><h5>チームをまたぐ相談を拾える</h5><p>「映像もSNSもヘアメイクも」という相談を、Swimmy・fill・SPECに同時に届けます。グループで受けられる案件が見えます。</p></div>
+    <div class="point"><p class="num">03</p><h5>どこから来たかが分かる</h5><p>知ったきっかけと受注を記録するので、紹介・Web・SNS・イベントのどれが効いているかを毎月振り返れます。</p></div>
+  </div>
+
+  <div class="next"><b>本番にする場合：</b>フォームは Googleフォーム／HubSpot などで作り、通知は Slack、記録は スプレッドシート か CRM に。各ブランドのサイトの「お問い合わせ」を、この窓口へのリンクに差し替えます。小さく始めるなら、まずフォームとスプレッドシートだけで動かせます。</div>
+</section>
+
+</main>
+
+<footer>Demo prototype — HATCH 総合窓口の提案用イメージ</footer>
+
+<script>
+/* ---------- チームと目的 ---------- */
+const TEAMS = {
+  swimmy:{name:"Creative Hub Swimmy", ch:"#inbox-swimmy"},
+  fill:{name:"fill", ch:"#inbox-fill"},
+  spec:{name:"SPEC", ch:"#inbox-spec"},
+  curator:{name:"Curator", ch:"#inbox-curator"},
+  we:{name:"We", ch:"#inbox-we"},
+  mikoshi:{name:"MIKOSHI", ch:"#inbox-mikoshi"},
+  kikka:{name:"KiKKA", ch:"#inbox-kikka"},
+  hatch:{name:"HATCH", ch:"#inbox-hatch"}
+};
+const PURPOSES = [
+  {id:"movie", ttl:"映像・CMをつくりたい", desc:"TVCM、Web動画、MV、グラフィック、VR", teams:["swimmy"]},
+  {id:"brand", ttl:"ブランドを育てたい", desc:"ブランドフィルム、キービジュアル、SNSの企画・運用", teams:["fill"]},
+  {id:"creator", ttl:"クリエイターに頼みたい", desc:"監督、撮影、ヘアメイク、スタイリストなど", teams:["spec"]},
+  {id:"support", ttl:"ちょっと手伝ってほしい", desc:"資料づくり、翻訳、リサーチ、議事録、LP制作", teams:["curator"]},
+  {id:"motion", ttl:"動きで伝えたい", desc:"モーショングラフィックス、アニメーション", teams:["we"]},
+  {id:"light", ttl:"光・CGで見せたい", desc:"照明、3DCG、質感の表現", teams:["mikoshi"]},
+  {id:"place", ttl:"場や事業をつくりたい", desc:"店舗・空間、イベント、新規事業の立ち上げ", teams:["kikka"]},
+  {id:"unknown", ttl:"まだ決まっていない", desc:"まずは話を聞いてほしい。プロデューサーがお伺いします", teams:["hatch"]}
+];
+/* 自由記述からの振り分け（キーワード） */
+const KEYWORDS = {
+  swimmy:["cm","ｃｍ","動画","映像","ムービー","mv","ミュージックビデオ","撮影","広告","tvcm","web動画","グラフィック","vr","360","ポスター"],
+  fill:["ブランド","ブランディング","世界観","sns","インスタ","instagram","tiktok","縦動画","運用","キービジュアル","コスメ","美容","ビューティ"],
+  spec:["監督","ディレクター","カメラマン","フォトグラファー","ヘアメイク","スタイリスト","振付","アートディレクター","キャスティング","クリエイター"],
+  curator:["資料","翻訳","英語","リサーチ","調査","議事録","パワポ","スライド","lp","ランディング","競合"],
+  we:["モーション","アニメーション","アニメ","インフォグラフィック","動き"],
+  mikoshi:["照明","ライティング","cg","3d","3dcg","光"],
+  kikka:["店舗","カフェ","空間","場づくり","イベント","ワークショップ","新規事業","事業","コミュニティ","地域","まちづくり","上映"]
+};
+const OPTIONS = {
+  budget:["〜50万円","50〜300万円","300〜1,000万円","1,000万円〜","まだ決めていない"],
+  timing:["1か月以内","3か月以内","半年以内","未定"],
+  source:["紹介","Web検索","SNS","過去に依頼した","イベント","その他"]
+};
+const STATUS = ["未対応","対応中","提案中","受注","見送り"];
+
+/* ---------- 状態 ---------- */
+const state = {purposes:new Set(), budget:"", timing:"", source:""};
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+
+/* ---------- 保存（このブラウザの中だけ） ---------- */
+const KEY = "hatch-onedoor-demo-v1";
+function load(){ try{ const v = JSON.parse(localStorage.getItem(KEY)); if(Array.isArray(v)) return v; }catch(e){} return null; }
+function save(list){ try{ localStorage.setItem(KEY, JSON.stringify(list)); }catch(e){} }
+function daysAgo(n,h=10){ const d=new Date(); d.setDate(d.getDate()-n); d.setHours(h,0,0,0); return d.toISOString(); }
+function sample(){
+  return [
+    {id:"H-0921",at:daysAgo(0,9),company:"架空食品株式会社",summary:"新商品のブランドムービーとInstagram用の縦動画。ヘアメイクも探している",teams:["fill","swimmy","spec"],source:"Web検索",budget:"300〜1,000万円",status:"未対応"},
+    {id:"H-0920",at:daysAgo(1,15),company:"サンプル不動産",summary:"駅前の空き店舗を使ったコミュニティスペースの企画",teams:["kikka"],source:"紹介",budget:"まだ決めていない",status:"未対応"},
+    {id:"H-0919",at:daysAgo(2,11),company:"テスト精機",summary:"展示会向けの製品紹介映像（3DCGあり）",teams:["swimmy","mikoshi"],source:"過去に依頼した",budget:"300〜1,000万円",status:"提案中"},
+    {id:"H-0918",at:daysAgo(3,10),company:"株式会社ダミー商事",summary:"海外向け会社案内の英訳とスライド整形",teams:["curator"],source:"Web検索",budget:"〜50万円",status:"受注"},
+    {id:"H-0917",at:daysAgo(5,17),company:"架空レコーズ",summary:"新曲のMV。監督を指名したい",teams:["spec","swimmy"],source:"SNS",budget:"50〜300万円",status:"対応中"},
+    {id:"H-0916",at:daysAgo(6,13),company:"サンプル化粧品",summary:"ブランドリニューアルのキービジュアルとSNS運用",teams:["fill"],source:"紹介",budget:"300〜1,000万円",status:"提案中"},
+    {id:"H-0915",at:daysAgo(8,10),company:"NPO法人テスト",summary:"何から始めればいいか相談したい",teams:["hatch"],source:"イベント",budget:"まだ決めていない",status:"対応中"},
+    {id:"H-0914",at:daysAgo(10,14),company:"ダミー交通",summary:"駅構内サイネージ用のモーショングラフィックス",teams:["we"],source:"Web検索",budget:"50〜300万円",status:"見送り"},
+    {id:"H-0913",at:daysAgo(12,11),company:"架空ホテルズ",summary:"ロビーでの野外上映イベントとSNS発信",teams:["kikka","fill"],source:"紹介",budget:"50〜300万円",status:"受注"},
+    {id:"H-0912",at:daysAgo(15,16),company:"テスト製菓",summary:"競合の広告リサーチと企画書の下書き",teams:["curator"],source:"過去に依頼した",budget:"〜50万円",status:"受注"}
+  ];
+}
+let inquiries = load() || sample();
+
+/* ---------- お客さま画面 ---------- */
+function renderPurposes(){
+  $("#purposes").innerHTML = PURPOSES.map(p=>`
+    <button class="purpose" data-id="${p.id}" aria-pressed="false">
+      <span class="check" aria-hidden="true"></span>
+      <span class="p-ttl">${p.ttl}</span><span class="p-desc">${p.desc}</span>
+    </button>`).join("");
+  $$(".purpose").forEach(b=>b.addEventListener("click",()=>{
+    const id=b.dataset.id;
+    state.purposes.has(id)?state.purposes.delete(id):state.purposes.add(id);
+    b.setAttribute("aria-pressed",state.purposes.has(id));
+    updateRoute();
+  }));
+}
+function routeTeams(){
+  const score = {};
+  state.purposes.forEach(pid=>PURPOSES.find(p=>p.id===pid).teams.forEach(t=>score[t]=(score[t]||0)+3));
+  const text = $("#freeText").value.toLowerCase();
+  if(text.trim()){
+    for(const [t,words] of Object.entries(KEYWORDS)){
+      words.forEach(w=>{ if(text.includes(w)) score[t]=(score[t]||0)+1; });
+    }
+  }
+  let teams = Object.entries(score).sort((a,b)=>b[1]-a[1]).map(x=>x[0]);
+  if(teams.length>1) teams = teams.filter(t=>t!=="hatch");
+  if(!teams.length && text.trim()) teams=["hatch"];
+  return teams.slice(0,4);
+}
+function updateRoute(){
+  const teams = routeTeams();
+  const box = $("#route1");
+  if(!teams.length){
+    box.innerHTML = `<span class="route-label">担当するチーム</span><span class="hint" style="margin:0">上から選ぶか、内容を書くと表示されます</span>`;
+  }else{
+    box.innerHTML = `<span class="route-label">担当するチーム</span>` + teams.map((t,i)=>`<span class="chip ${i===0?"main":""}">${TEAMS[t].name}</span>`).join("") +
+      (teams.length>1?`<span class="chip sub">チームをまたいでご提案します</span>`:"");
+  }
+  $("#toStep2").disabled = !teams.length;
+}
+$("#freeText").addEventListener("input", updateRoute);
+
+function renderSegs(){
+  $$(".seg").forEach(seg=>{
+    const key=seg.dataset.key;
+    seg.innerHTML = OPTIONS[key].map(o=>`<button type="button" aria-pressed="false">${o}</button>`).join("");
+    seg.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+      seg.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed","false"));
+      b.setAttribute("aria-pressed","true"); state[key]=b.textContent; checkStep2();
+    }));
+  });
+}
+function checkStep2(){
+  const ok = $("#f-company").value.trim() && $("#f-name").value.trim() && /\S+@\S+\.\S+/.test($("#f-mail").value);
+  $("#toStep3").disabled = !ok;
+}
+["#f-company","#f-name","#f-mail"].forEach(s=>$(s).addEventListener("input",checkStep2));
+
+function go(step){
+  $$(".panel").forEach(p=>p.classList.toggle("on", p.dataset.step==step));
+  $$(".steps span").forEach((s,i)=>s.classList.toggle("on", i < Math.min(step,3)));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$("#toStep2").addEventListener("click",()=>go(2));
+$$("[data-back]").forEach(b=>b.addEventListener("click",()=>go(+b.dataset.back)));
+
+const esc = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function summaryText(){
+  const d=$("#f-detail").value.trim(), f=$("#freeText").value.trim();
+  const p=[...state.purposes].map(id=>PURPOSES.find(x=>x.id===id).ttl).join("／");
+  return d || f || p || "（内容の記入なし）";
+}
+$("#toStep3").addEventListener("click",()=>{
+  const teams=routeTeams();
+  const rows=[
+    ["お願いしたいこと",[...state.purposes].map(id=>PURPOSES.find(x=>x.id===id).ttl).join("、")||"—"],
+    ["会社名・団体名",$("#f-company").value],["お名前",$("#f-name").value],["メール",$("#f-mail").value],
+    ["電話",$("#f-tel").value||"—"],["ご予算",state.budget||"—"],["時期",state.timing||"—"],["きっかけ",state.source||"—"],
+    ["内容",summaryText()]
+  ];
+  $("#confirmList").innerHTML = rows.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("");
+  $("#confirmNotice").textContent = `このご相談は ${teams.map(t=>TEAMS[t].name).join("・")} に届きます。` + (teams.length>1?"チームをまたいで、窓口はひとりの担当がまとめます。":"");
+  go(3);
+});
+
+$("#submit").addEventListener("click",()=>{
+  const teams=routeTeams();
+  const nextNo = Math.max(0,...inquiries.map(q=>+q.id.split("-")[1]))+1;
+  const item={id:"H-"+String(nextNo).padStart(4,"0"),at:new Date().toISOString(),company:$("#f-company").value.trim(),
+    summary:summaryText(),teams,source:state.source||"その他",budget:state.budget||"まだ決めていない",status:"未対応",isNew:true};
+  inquiries.unshift(item); save(inquiries);
+  $("#doneTeam").textContent = teams.map(t=>TEAMS[t].name).join("・");
+  $("#doneId").textContent = "受付番号 "+item.id;
+  $("#doneCh").textContent = teams.map(t=>TEAMS[t].ch).join(" ");
+  $("#doneMsg").textContent =
+`新しいご相談 ${item.id}
+会社：${item.company}（${$("#f-name").value.trim()} 様）
+内容：${item.summary}
+予算：${item.budget}／時期：${state.timing||"未定"}／きっかけ：${item.source}
+担当：${teams.map(t=>TEAMS[t].name).join("・")}
+→ 1営業日以内に連絡。受付ボードで「対応中」に変えてください`;
+  renderBoard(); go(4);
+});
+$("#again").addEventListener("click",()=>{
+  state.purposes.clear(); state.budget=state.timing=state.source="";
+  $$(".purpose,.seg button").forEach(b=>b.setAttribute("aria-pressed","false"));
+  ["#freeText","#f-company","#f-name","#f-mail","#f-tel","#f-detail"].forEach(s=>$(s).value="");
+  updateRoute(); checkStep2(); go(1);
+});
+$("#goBoard").addEventListener("click",()=>switchView("board"));
+
+/* ---------- 受付ボード ---------- */
+function fmtDate(iso){ const d=new Date(iso); return `${d.getMonth()+1}/${d.getDate()}`; }
+function age(iso){ const h=(Date.now()-new Date(iso))/36e5; return h<1?"たった今":h<24?`${Math.round(h)}時間`:`${Math.floor(h/24)}日`; }
+function bars(el, counts){
+  const entries=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const max=Math.max(1,...entries.map(e=>e[1]));
+  el.innerHTML = entries.map(([k,v],i)=>`<div class="bar-row ${i===0?"top":""}"><span>${k}</span><div class="bar-track"><div class="bar-fill" style="width:${v/max*100}%"></div></div><em>${v}</em></div>`).join("");
+}
+function renderBoard(){
+  const fb=$("#filterBrand").value, fs=$("#filterStatus").value;
+  const list=inquiries.filter(q=>(!fb||q.teams.includes(fb))&&(!fs||q.status===fs));
+  $("#rows").innerHTML = list.map(q=>{
+    const late = q.status==="未対応" && (Date.now()-new Date(q.at))/36e5>24;
+    return `<tr class="${q.isNew?"new":""}">
+      <td class="t-id">${q.id}</td>
+      <td>${fmtDate(q.at)}</td>
+      <td><div class="t-co">${esc(q.company)}</div><div class="t-sum">${esc(q.summary)}</div></td>
+      <td>${q.teams.map((t,i)=>`<span class="b-tag ${i===0?"main":""}">${TEAMS[t].name}</span>`).join("")}</td>
+      <td>${esc(q.source)}</td>
+      <td style="white-space:nowrap">${esc(q.budget)}</td>
+      <td><select data-id="${q.id}" aria-label="状況">${STATUS.map(s=>`<option ${s===q.status?"selected":""}>${s}</option>`).join("")}</select></td>
+      <td class="age ${late?"late":""}">${q.status==="未対応"?age(q.at):"—"}</td>
+    </tr>`;}).join("") || `<tr><td colspan="8" style="text-align:center;color:var(--mute);padding:30px">該当する問い合わせはありません</td></tr>`;
+  $$("#rows select").forEach(s=>s.addEventListener("change",()=>{
+    const q=inquiries.find(x=>x.id===s.dataset.id); q.status=s.value; delete q.isNew; save(inquiries); renderBoard();
+  }));
+  $("#k-total").textContent=inquiries.length;
+  $("#k-open").textContent=inquiries.filter(q=>q.status==="未対応").length;
+  $("#k-cross").textContent=inquiries.filter(q=>q.teams.length>1).length;
+  $("#k-won").textContent=inquiries.filter(q=>q.status==="受注").length;
+  const byTeam={}, bySrc={};
+  inquiries.forEach(q=>{ q.teams.forEach(t=>byTeam[TEAMS[t].name]=(byTeam[TEAMS[t].name]||0)+1); bySrc[q.source]=(bySrc[q.source]||0)+1; });
+  bars($("#chart-brand"),byTeam); bars($("#chart-source"),bySrc);
+}
+$("#filterBrand").innerHTML += Object.entries(TEAMS).map(([k,v])=>`<option value="${k}">${v.name}</option>`).join("");
+$("#filterStatus").innerHTML += STATUS.map(s=>`<option>${s}</option>`).join("");
+$("#filterBrand").addEventListener("change",renderBoard);
+$("#filterStatus").addEventListener("change",renderBoard);
+$("#resetData").addEventListener("click",()=>{ inquiries=sample(); save(inquiries); renderBoard(); });
+$("#exportCsv").addEventListener("click",()=>{
+  const head=["受付番号","受付日時","会社","内容","担当","きっかけ","予算","状況"];
+  const lines=[head,...inquiries.map(q=>[q.id,q.at,q.company,q.summary,q.teams.map(t=>TEAMS[t].name).join("/"),q.source,q.budget,q.status])]
+    .map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(","));
+  const blob=new Blob(["﻿"+lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="hatch-inbox-demo.csv"; a.click();
+});
+
+/* ---------- タブ ---------- */
+function switchView(v){
+  $$(".tab").forEach(t=>t.setAttribute("aria-selected", t.dataset.view===v));
+  $$(".view").forEach(s=>s.classList.toggle("on", s.id==="view-"+v));
+  window.scrollTo({top:0});
+}
+$$(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
+
+renderPurposes(); renderSegs(); updateRoute(); renderBoard();
+</script>
+</body>
+</html>
