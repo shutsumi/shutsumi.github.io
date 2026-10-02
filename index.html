@@ -145,6 +145,18 @@
   .work .role { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; }
 
   /* typographic thumbnails */
+  .t-swatch, .t-tedori { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
+  .t-swatch .map { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; width: 62%; }
+  .t-swatch .map i { aspect-ratio: 1; border-radius: 2px; }
+  .t-swatch p { margin: 0; font-family: var(--latin); font-weight: 700; font-size: 15px; letter-spacing: .14em; color: var(--accent); }
+  .t-tedori { gap: 10px; }
+  .t-tedori .row { display: flex; align-items: baseline; gap: 10px; }
+  .t-tedori .k { font-family: var(--ja); font-size: 12px; letter-spacing: .2em; color: var(--ink-soft); }
+  .t-tedori b { font-family: var(--latin); font-weight: 300; font-size: 34px; letter-spacing: -.01em; }
+  .t-tedori b small { font-family: var(--ja); font-size: 13px; margin-left: 2px; }
+  .t-tedori .is-net b { color: var(--accent); font-weight: 400; }
+  .t-tedori .arrow { width: 1px; height: 22px; background: var(--ink-soft); position: relative; }
+  .t-tedori .arrow::after { content: ""; position: absolute; left: -3px; bottom: -1px; width: 7px; height: 7px; border-left: 1px solid var(--ink-soft); border-bottom: 1px solid var(--ink-soft); transform: rotate(-45deg); }
   .t-wave, .t-food { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
   .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
   .t-wave .bars { display: flex; align-items: center; gap: 5px; height: 72px; }
@@ -381,6 +393,29 @@
           </div>
           <div class="cap"><span class="cat">インナーブランディング</span><strong>社内ラジオ『声の社内報』</strong><span class="role">企画・制作</span></div>
         </div>
+        <a class="work wide" href="https://shutsumi.github.io/color-code/" target="_blank" rel="noopener">
+          <div class="thumb">
+            <div class="t-swatch" aria-hidden="true">
+              <div class="map">
+                <i style="background:#f5f5f4"></i><i style="background:#e8d3c8"></i><i style="background:#ffb7a5"></i><i style="background:#ff8162"></i><i style="background:#ff4b1e"></i><i style="background:#bf3817"></i><i style="background:#80260f"></i><i style="background:#3b2f2a"></i>
+                <i style="background:#f0efe6"></i><i style="background:#e3d3a0"></i><i style="background:#f8b500"></i><i style="background:#e6a23c"></i><i style="background:#a06b2a"></i><i style="background:#6b8e6b"></i><i style="background:#2f6b5a"></i><i style="background:#1f3b3a"></i>
+                <i style="background:#eef0f4"></i><i style="background:#c5cbd8"></i><i style="background:#8d9ac0"></i><i style="background:#606da1"></i><i style="background:#3a4a7a"></i><i style="background:#7a6ba1"></i><i style="background:#4a3b63"></i><i style="background:#201b2e"></i>
+              </div>
+              <p>#FF4B1E</p>
+            </div>
+          </div>
+          <div class="cap"><span class="cat">自主制作ツール</span><strong>色番コピペ — カラーコードを1クリックでコピー<i>↗</i></strong><span class="role">企画・制作・運用／日本の色238色のページつき</span></div>
+        </a>
+        <a class="work" href="https://shutsumi.github.io/tedori-taro/" target="_blank" rel="noopener">
+          <div class="thumb">
+            <div class="t-tedori" aria-hidden="true">
+              <div class="row"><span class="k">額面</span><b>30.0<small>万</small></b></div>
+              <span class="arrow"></span>
+              <div class="row is-net"><span class="k">手取り</span><b>25.2<small>万</small></b></div>
+            </div>
+          </div>
+          <div class="cap"><span class="cat">自主制作ツール</span><strong>手取り教えタロウ — 手取り計算シミュレーター<i>↗</i></strong><span class="role">企画・制作・運用／会社員・副業・フリーランス対応</span></div>
+        </a>
         <div class="work" id="work-oem">
           <div class="thumb">
             <div class="t-food" aria-hidden="true"><span>VEGAN</span><span>HALAL</span></div>
