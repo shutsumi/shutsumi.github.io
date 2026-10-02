@@ -145,18 +145,10 @@
   .work .role { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; }
 
   /* typographic thumbnails */
-  .t-swatch, .t-tedori { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
+  .t-swatch { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 16px; }
   .t-swatch .map { display: grid; grid-template-columns: repeat(8, 1fr); gap: 3px; width: 62%; }
   .t-swatch .map i { aspect-ratio: 1; border-radius: 2px; }
   .t-swatch p { margin: 0; font-family: var(--latin); font-weight: 700; font-size: 15px; letter-spacing: .14em; color: var(--accent); }
-  .t-tedori { gap: 10px; }
-  .t-tedori .row { display: flex; align-items: baseline; gap: 10px; }
-  .t-tedori .k { font-family: var(--ja); font-size: 12px; letter-spacing: .2em; color: var(--ink-soft); }
-  .t-tedori b { font-family: var(--latin); font-weight: 300; font-size: 34px; letter-spacing: -.01em; }
-  .t-tedori b small { font-family: var(--ja); font-size: 13px; margin-left: 2px; }
-  .t-tedori .is-net b { color: var(--accent); font-weight: 400; }
-  .t-tedori .arrow { width: 1px; height: 22px; background: var(--ink-soft); position: relative; }
-  .t-tedori .arrow::after { content: ""; position: absolute; left: -3px; bottom: -1px; width: 7px; height: 7px; border-left: 1px solid var(--ink-soft); border-bottom: 1px solid var(--ink-soft); transform: rotate(-45deg); }
   .t-wave, .t-food { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
   .t-wave p { margin: 0; font-family: var(--ja); font-weight: 400; font-size: 14px; line-height: 1.8; letter-spacing: .24em; text-align: center; }
   .t-wave .bars { display: flex; align-items: center; gap: 5px; height: 72px; }
@@ -408,11 +400,7 @@
         </a>
         <a class="work" href="https://shutsumi.github.io/tedori-taro/" target="_blank" rel="noopener">
           <div class="thumb">
-            <div class="t-tedori" aria-hidden="true">
-              <div class="row"><span class="k">額面</span><b>30.0<small>万</small></b></div>
-              <span class="arrow"></span>
-              <div class="row is-net"><span class="k">手取り</span><b>25.2<small>万</small></b></div>
-            </div>
+            <img src="img/tedori-taro.jpg" alt="手取り教えタロウのページ。働き方と金額を選んで手取りを計算する画面" width="900" height="900" loading="lazy">
           </div>
           <div class="cap"><span class="cat">自主制作ツール</span><strong>手取り教えタロウ — 手取り計算シミュレーター<i>↗</i></strong><span class="role">企画・制作・運用／会社員・副業・フリーランス対応</span></div>
         </a>
