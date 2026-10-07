@@ -171,15 +171,6 @@
   .more-works li:last-child { border-bottom: 1px solid var(--rule); }
   .more-works li::before { content: "—"; color: var(--accent); margin-right: 10px; }
 
-  /* list (面倒くさいこと) */
-  .list-sec { background: var(--tile); }
-  .chores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(28px, 5vw, 64px); list-style: none; margin: 0; padding: 0; }
-  .chore { display: grid; grid-template-columns: 44px 1fr; gap: 4px 12px; padding: 22px 0; border-bottom: 1px solid var(--rule); }
-  .chore .no { font-family: var(--latin); font-weight: 300; font-size: 22px; line-height: 1.4; color: var(--accent); }
-  .chore strong { font-family: var(--ja); font-weight: 500; font-size: 15px; letter-spacing: .06em; line-height: 1.7; }
-  .chore p { grid-column: 2; margin: 0; font-family: var(--ja); font-size: 12px; line-height: 1.9; }
-  .chore .level { grid-column: 2; margin-top: 6px; font-family: var(--ja); font-size: 10px; letter-spacing: .2em; color: var(--ink-soft); display: flex; align-items: center; gap: 8px; }
-  .chore .level span { color: var(--accent); letter-spacing: .1em; font-size: 12px; }
 
   /* profile */
   .profile { display: grid; grid-template-columns: 240px 1fr; gap: clamp(32px, 6vw, 72px); align-items: start; max-width: 880px; margin-inline: auto; }
@@ -253,8 +244,7 @@
     .services, .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .works { --cols: 2; }
     .work.wide:last-child { grid-column: auto; }
-    .chores { grid-template-columns: 1fr; }
-    .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .step::after { display: none; }
     .profile { grid-template-columns: 1fr; justify-items: center; }
     .avatar { width: 200px; }
@@ -448,23 +438,6 @@
     </div>
   </section>
 
-  <!-- List -->
-  <section id="list" class="list-sec">
-    <div class="wrap">
-      <div class="sec-title"><h2>Mendokusai List</h2><p>これまで引き受けた面倒くさいこと</p></div>
-      <ol class="chores">
-        <li class="chore"><span class="no">01</span><strong>189校の公式サイトを、1校ずつ全部見る</strong><p>説明会・寮・進路の情報を横断で比べられるよう、手で拾って揃えました。</p><span class="level">面倒度 <span>●●●●●</span></span></li>
-        <li class="chore"><span class="no">02</span><strong>「載っていない」を、載っていないと確かめる</strong><p>寮の申込日が見つからない学校が177校。ないことの証明が記事の柱に。</p><span class="level">面倒度 <span>●●●●●</span></span></li>
-        <li class="chore"><span class="no">03</span><strong>アンケートの自由記述を、1件ずつ全部読む</strong><p>数字には出てこない迷いどころを拾って、ペルソナにします。</p><span class="level">面倒度 <span>●●●●○</span></span></li>
-        <li class="chore"><span class="no">04</span><strong>189校×6コマの説明会を、時間割に組む</strong><p>学校を選ぶだけで、自分用の時間割ができるツールに。</p><span class="level">面倒度 <span>●●●●○</span></span></li>
-        <li class="chore"><span class="no">05</span><strong>Amazonの検索語を、一語ずつ見直す</strong><p>広告費に頼らず、商品ページと検索対策で自然に売れる状態へ。</p><span class="level">面倒度 <span>●●●●○</span></span></li>
-        <li class="chore"><span class="no">06</span><strong>収録音声の「えー」を、ひとつずつ切る</strong><p>聴きやすさは細部で決まります。</p><span class="level">面倒度 <span>●●●○○</span></span></li>
-        <li class="chore"><span class="no">07</span><strong>週2回の更新を、止めずにまわし続ける</strong><p>つくったサイトを、自動で最新に保つ仕組みまで。</p><span class="level">面倒度 <span>●●●○○</span></span></li>
-        <li class="chore"><span class="no">08</span><strong>決まっていないことを、決まるまで聞く</strong><p>「何から手をつければいいか」の段階から、現場に話を聞いて整理します。</p><span class="level">面倒度 <span>●●●●●</span></span></li>
-      </ol>
-    </div>
-  </section>
-
   <!-- Flow -->
   <section id="flow" class="flow-sec">
     <div class="wrap">
@@ -561,7 +534,6 @@
     <nav aria-label="フッターメニュー">
       <a href="#about">About</a>
       <a href="#works">Works</a>
-      <a href="#list">List</a>
       <a href="#flow">Flow</a>
       <a href="#contact">Contact</a>
     </nav>
