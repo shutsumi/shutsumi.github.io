@@ -73,31 +73,6 @@
   .head-mail svg { width: 20px; height: 20px; }
   .site-head nav { display: flex; justify-content: flex-end; gap: clamp(24px, 5vw, 64px); padding-block: clamp(28px, 5vw, 56px) 22px; font-family: var(--latin); font-size: 14px; letter-spacing: .06em; }
 
-  /* ---------- hero ---------- */
-  .hero { background: var(--mist); overflow: hidden; }
-  .hero .wrap { display: grid; grid-template-columns: 1.35fr 1fr; align-items: center; min-height: clamp(360px, 42vw, 480px); }
-  .bubble {
-    position: relative;
-    background: var(--white);
-    padding: clamp(40px, 5vw, 64px) clamp(36px, 6vw, 80px);
-    border-radius: 48% 52% 60% 40% / 55% 45% 55% 45%;
-    margin-block: 40px;
-    margin-left: -12px;
-  }
-  .bubble .kicker { margin: 0 0 18px; font-family: var(--latin); font-weight: 300; font-size: 12px; letter-spacing: .3em; color: var(--accent); }
-  .bubble h1 {
-    margin: 0 0 22px;
-    font-family: var(--ja); font-weight: 500;
-    font-size: clamp(20px, 2.5vw, 28px); line-height: 1.6; letter-spacing: .14em;
-  }
-  .bubble h1 u { text-decoration: none; background: linear-gradient(transparent 70%, rgba(255, 75, 30, .28) 70%); }
-  .bubble p { margin: 0; font-family: var(--ja); font-weight: 300; font-size: 13px; line-height: 2.5; letter-spacing: .22em; }
-
-  .hero { position: relative; }
-  .hero .bubble { z-index: 1; }
-  .portrait { position: absolute; top: 0; right: 0; bottom: 0; width: 44%; margin: 0; }
-  .portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 35%; }
-
   /* ---------- sections ---------- */
   section { padding-block: clamp(72px, 10vw, 120px); }
   .sec-title { text-align: center; margin: 0 0 clamp(48px, 6vw, 72px); }
@@ -232,10 +207,6 @@
 
   /* ---------- responsive ---------- */
   @media (max-width: 860px) {
-    .hero .wrap { grid-template-columns: 1fr; }
-    .bubble { margin: 40px 0 0; border-radius: 42% 58% 50% 50% / 40% 40% 60% 60%; }
-    .portrait { position: static; width: auto; order: -1; margin-inline: calc(var(--gutter) * -1); height: clamp(320px, 70vw, 520px); }
-    .bubble { margin-top: -56px; margin-bottom: 40px; }
     .services, .works { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .works { --cols: 2; }
     .work.wide:last-child { grid-column: auto; }
@@ -248,9 +219,6 @@
   @media (max-width: 600px) {
     .head-mail span { display: none; }
     .site-head nav { justify-content: space-between; gap: 12px; }
-    .bubble { padding: 44px 28px; border-radius: 36px 60px 40px 56px; }
-    .bubble p { letter-spacing: .12em; line-height: 2.2; }
-    .bubble p br { display: none; }
     .services, .works { grid-template-columns: 1fr; }
     .works { --cols: 1; }
     .work .thumb:has(.fit-contain) { height: auto; aspect-ratio: 1200 / 569; }
@@ -293,24 +261,11 @@
 </header>
 
 <main>
-  <div class="hero">
-    <div class="wrap">
-      <div class="bubble">
-        <p class="kicker">MENDOKUSAI MARKETING</p>
-        <h1><u>面倒くさいこと</u>専門<br>マーケター</h1>
-        <p>みんなが後回しにする調べものや、地道な運用。<br>面倒くさいことの向こう側にある成果まで、<br>いっしょに届けます。</p>
-      </div>
-      <figure class="portrait">
-        <img src="img/utsumi-hero.jpg" alt="白いシャツで笑顔のうつみしょうた。背景に窓のカーテンと観葉植物" width="1600" height="1600" fetchpriority="high">
-      </figure>
-    </div>
-  </div>
-
   <!-- About -->
   <section id="about" class="about">
     <div class="wrap">
       <div class="sec-title"><h2>About</h2><p>考え方</p></div>
-      <p class="lead">社内の<em>「マーケター不在・不足」</em>を<br>ワンストップで解決します。</p>
+      <h1 class="lead">社内の<em>「マーケター不在・不足」</em>を<br>ワンストップで解決します。</h1>
       <p class="body">リサーチ（調べる）、戦略立案（つくる）、施策実行＆検証（まわす）を、大手・スタートアップそれぞれで積み重ねてきた経験に基づき、一次情報収集力×営業力×AIスキルを活かして課題解決をおこないます。</p>
       <p class="body">「面倒くさくてなかなか進められていない大事なこと」を、ぜひ丸投げしてください。</p>
     </div>
