@@ -137,6 +137,7 @@
   a.work:hover strong { color: var(--accent); }
   .work img { width: 100%; height: 100%; object-fit: cover; }
   .work img.fit-contain { object-fit: contain; background: #000; }
+  .work img.fit-contain.is-light { background: var(--tile); }
   .work.wide { grid-column: span 2; }
   .work .cap { display: block; padding-top: 14px; font-family: var(--ja); }
   .work .cat { display: inline-block; font-size: 11px; letter-spacing: .12em; color: var(--accent); }
@@ -145,13 +146,6 @@
   .work .role { display: block; margin-top: 4px; font-size: 12px; color: var(--ink-soft); letter-spacing: .06em; }
 
   /* typographic thumbnails */
-  .t-bento, .t-ghg { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; }
-  .t-bento .box { display: grid; grid-template-columns: 1.3fr 1fr; grid-template-rows: 1fr 1fr; gap: 4px; width: 46%; aspect-ratio: 4 / 3; padding: 6px; border: 1px solid var(--ink); background: var(--white); }
-  .t-bento .box i { background: #e7e4dc; }
-  .t-bento .box i:first-child { grid-row: span 2; background: #efece3; }
-  .t-bento .box i:last-child { background: var(--accent); opacity: .85; }
-  .t-bento p { margin: 0; font-family: var(--ja); font-size: 13px; letter-spacing: .14em; }
-  .t-bento p span { color: var(--accent); margin: 0 2px; }
   .t-ghg b { font-family: var(--latin); font-weight: 100; font-size: clamp(56px, 7vw, 86px); line-height: 1; color: var(--accent); }
   .t-ghg b small { font-size: .4em; font-weight: 300; margin-left: 2px; }
   .t-ghg p { margin: 0; font-family: var(--ja); font-size: 13px; letter-spacing: .2em; }
@@ -399,12 +393,9 @@
           </div>
           <div class="cap"><span class="cat">自主制作ツール</span><strong>手取り教えタロウ — 手取り計算シミュレーター<i>↗</i></strong><span class="role">企画・制作・運用／会社員・副業・フリーランス対応</span></div>
         </a>
-        <a class="work" href="https://prtimes.jp/main/html/rd/p/000000014.000043143.html" target="_blank" rel="noopener">
+        <a class="work wide" href="https://prtimes.jp/main/html/rd/p/000000014.000043143.html" target="_blank" rel="noopener">
           <div class="thumb">
-            <div class="t-bento" aria-hidden="true">
-              <div class="box"><i></i><i></i><i></i><i></i></div>
-              <p>伊勢すえよし <span>×</span> Grino</p>
-            </div>
+            <img class="fit-contain is-light" src="img/grino-bento.jpg" alt="伊勢すえよし×Grinoの菜食弁当。世界的名店の監修による冷凍弁当のビジュアル" width="601" height="338" loading="lazy">
           </div>
           <div class="cap"><span class="cat">商品開発・クラウドファンディング</span><strong>“世界3位”の名店と共同開発した菜食弁当<i>↗</i></strong><span class="role">Grino／商品企画・開発ディレクション／Makuakeで先行販売</span></div>
         </a>
