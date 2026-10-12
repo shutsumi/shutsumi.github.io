@@ -69,8 +69,9 @@
   .logo .type { display: flex; flex-direction: column; line-height: 1.1; }
   .logo .en { font-family: var(--latin); font-weight: 700; font-size: clamp(20px, 2.6vw, 28px); letter-spacing: .18em; }
   .logo .ja { font-family: var(--ja); font-weight: 400; font-size: 10px; letter-spacing: .5em; margin-top: 6px; color: var(--accent); }
-  .head-mail { font-family: var(--latin); font-size: 13px; letter-spacing: .08em; display: flex; align-items: center; gap: 8px; }
-  .head-mail svg { width: 20px; height: 20px; }
+  .head-links { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 26px); }
+  .head-link { font-family: var(--latin); font-size: 13px; letter-spacing: .08em; display: flex; align-items: center; gap: 8px; }
+  .head-link svg { width: 20px; height: 20px; flex: none; }
   .site-head nav { display: flex; justify-content: flex-end; gap: clamp(24px, 5vw, 64px); padding-block: clamp(28px, 5vw, 56px) 22px; font-family: var(--latin); font-size: 14px; letter-spacing: .06em; }
 
   /* ---------- sections ---------- */
@@ -193,6 +194,9 @@
   .btn { font-family: var(--ja); }
   .mail-alt { margin: 22px 0 0; font-family: var(--ja); font-size: 12px; color: var(--ink-soft); }
   .mail-alt a { font-family: var(--latin); border-bottom: 1px solid currentColor; }
+  .sns-alt { margin: 10px 0 0; display: flex; justify-content: center; gap: 28px; font-family: var(--latin); font-size: 12px; letter-spacing: .08em; }
+  .sns-alt a { color: var(--ink-soft); border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+  .sns-alt a:hover { color: var(--accent); }
 
   /* footer */
   .to-top { display: block; width: 24px; margin: 0 auto 40px; color: #c9c9c9; }
@@ -214,7 +218,7 @@
     .profile > div:last-child { width: 100%; }
   }
   @media (max-width: 600px) {
-    .head-mail span { display: none; }
+    .head-link span { display: none; }
     .site-head nav { justify-content: space-between; gap: 12px; }
     .services, .works { grid-template-columns: 1fr; }
     .works { --cols: 1; }
@@ -242,10 +246,20 @@
       <a class="logo" href="#top" aria-label="うつみしょうた トップへ">
         <span class="type"><span class="en">UTSUMI SHOTA</span><span class="ja">うつみしょうた</span></span>
       </a>
-      <a class="head-mail" href="mailto:sh.utsumi@gmail.com">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m4 6.5 8 6.5 8-6.5"/></svg>
-        <span>Mail</span>
-      </a>
+      <div class="head-links">
+        <a class="head-link" href="https://www.instagram.com/sh_utsumi" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a class="head-link" href="https://note.com/theshoyuface" target="_blank" rel="noopener" aria-label="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8 16.5v-9l8 9v-9"/></svg>
+          <span>note</span>
+        </a>
+        <a class="head-link" href="mailto:sh.utsumi@gmail.com" aria-label="メール">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="m4 6.5 8 6.5 8-6.5"/></svg>
+          <span>Mail</span>
+        </a>
+      </div>
     </div>
     <nav aria-label="メニュー">
       <a href="#about">About</a>
@@ -469,6 +483,7 @@
         まずは1時間（無料）、お話ししましょう
       </a>
       <p class="mail-alt">メールで直接：<a href="mailto:sh.utsumi@gmail.com">sh.utsumi@gmail.com</a></p>
+      <p class="sns-alt"><a href="https://www.instagram.com/sh_utsumi" target="_blank" rel="noopener">Instagram</a><a href="https://note.com/theshoyuface" target="_blank" rel="noopener">note</a></p>
     </div>
   </section>
 </main>
